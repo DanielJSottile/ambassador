@@ -1,12 +1,14 @@
-import type { NextPage } from 'next'
+import type { NextPage } from 'next';
+import AudioReactContextProvider from '../contexts/AudioContext';
 import AudioController from '../components/AudioController'
 
 const Home: NextPage = () => {
   return (
-    <div>
-      Hello
+    <>
+    <AudioReactContextProvider>
       <AudioController/>
-    </div>
+    </AudioReactContextProvider>
+    </>
   )
 }
 
