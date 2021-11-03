@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import Button from '../Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AudioReactContext } from '../../contexts/AudioContext';
@@ -12,7 +12,15 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const AudioController = () => {
-  const {isPlaying, setIsPlaying, isRecording, setIsRecording} = useContext(AudioReactContext);
+  const {
+    audioContext,
+    isPlaying,
+    setIsPlaying,
+    isPaused,
+    setIsPaused,
+    isRecording,
+    setIsRecording,
+  } = useContext(AudioReactContext);
   return (
     <div>
       <Button>
@@ -23,14 +31,30 @@ const AudioController = () => {
       </Button>
       <Button
         onClickCallback={() => {
-          setIsPlaying(false)
+          setIsPlaying(false);
+          setIsPaused(true);
         }}
       >
         <FontAwesomeIcon icon={faStop} />
       </Button>
-      <Button>
-        <FontAwesomeIcon icon={faPlay} />
-      </Button>
+      {isPaused ? (
+        <Button
+        onClickCallback={() => {
+          setIsPlaying(true);
+          setIsPaused(false);
+        }}>
+          <FontAwesomeIcon icon={faPlay} />
+        </Button>
+      ) : (
+        <Button
+        onClickCallback={() => {
+          setIsPlaying(false);
+          setIsPaused(true);
+        }}
+        >
+          <FontAwesomeIcon icon={faPause} />
+        </Button>
+      )}
       <Button>
         <FontAwesomeIcon icon={faCircle} />
       </Button>
