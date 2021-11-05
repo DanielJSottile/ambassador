@@ -1,0 +1,25 @@
+@import '../../pages/index.scss';
+
+.inactive {
+  color: $grey
+}
+
+.play {
+  color: $green;
+}
+
+.stop {
+  color: $red;
+}
+
+.record {
+  color: $brightred;
+}
+
+.pause {
+  color: $blue;
+}
+
+.back-forward {
+  color: $lightblue;
+}

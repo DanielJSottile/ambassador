@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import Button from '../Button';
+import AudioControllerButton from './AudioControllerButton';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { AudioReactContext } from '../../contexts/AudioContext';
 import {
@@ -10,6 +10,7 @@ import {
   faForward,
   faBackward,
 } from '@fortawesome/free-solid-svg-icons';
+import styles from './AudioController.module.scss'
 
 const AudioController = () => {
   const {
@@ -22,43 +23,35 @@ const AudioController = () => {
     setIsRecording,
   } = useContext(AudioReactContext);
   return (
-    <div>
-      <Button>
-        <FontAwesomeIcon icon={faBackward} />
-      </Button>
-      <Button>
-        <FontAwesomeIcon icon={faForward} />
-      </Button>
-      <Button
+    <>
+      <AudioControllerButton>
+        <FontAwesomeIcon icon={faBackward} className={styles['back-forward']}/>
+      </AudioControllerButton>
+      <AudioControllerButton>
+        <FontAwesomeIcon icon={faForward} className={styles['back-forward']}/>
+      </AudioControllerButton>
+      <AudioControllerButton
         onClickCallback={() => {
           setIsPlaying(false);
           setIsPaused(true);
         }}
       >
-        <FontAwesomeIcon icon={faStop} />
-      </Button>
-      {isPaused ? (
-        <Button
+        <FontAwesomeIcon icon={faStop} className={styles['stop']}/>
+      </AudioControllerButton>
+      <AudioControllerButton
+        controller={isPaused}
         onClickCallback={() => {
-          setIsPlaying(true);
-          setIsPaused(false);
-        }}>
-          <FontAwesomeIcon icon={faPlay} />
-        </Button>
-      ) : (
-        <Button
-        onClickCallback={() => {
-          setIsPlaying(false);
-          setIsPaused(true);
+          setIsPlaying(isPaused);
+          setIsPaused(!isPaused);
         }}
-        >
-          <FontAwesomeIcon icon={faPause} />
-        </Button>
-      )}
-      <Button>
-        <FontAwesomeIcon icon={faCircle} />
-      </Button>
-    </div>
+        secondaryIcon={<FontAwesomeIcon icon={faPause} className={styles['pause']}/>}
+      >
+        <FontAwesomeIcon icon={faPlay} className={styles['play']}/>
+      </AudioControllerButton>
+      <AudioControllerButton>
+        <FontAwesomeIcon icon={faCircle} className={styles['record']}/>
+      </AudioControllerButton>
+    </>
   );
 };
 
